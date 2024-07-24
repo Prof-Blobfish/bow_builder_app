@@ -1,0 +1,28 @@
+<.header>
+  Component <%= @component.id %>
+  <:subtitle>This is a component record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/components/#{@component}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit component</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Type"><%= @component.type %></:item>
+  <:item title="Name"><%= @component.name %></:item>
+  <:item title="Price"><%= @component.price %></:item>
+</.list>
+
+<.back navigate={~p"/components"}>Back to components</.back>
+
+<.modal :if={@live_action == :edit} id="component-modal" show on_cancel={JS.patch(~p"/components/#{@component}")}>
+  <.live_component
+    module={BowBuilderAppWeb.ComponentLive.FormComponent}
+    id={@component.id}
+    title={@page_title}
+    action={@live_action}
+    component={@component}
+    patch={~p"/components/#{@component}"}
+  />
+</.modal>

@@ -1,0 +1,41 @@
+<.header>
+  Listing Bows
+  <:actions>
+    <.link patch={~p"/bows/new"}>
+      <.button>New Bow</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="bows"
+  rows={@streams.bows}
+  row_click={fn {_id, bow} -> JS.navigate(~p"/bows/#{bow}") end}
+>
+  <:col :let={{_id, bow}} label="Name"><%= bow.name %></:col>
+  <:action :let={{_id, bow}}>
+    <div class="sr-only">
+      <.link navigate={~p"/bows/#{bow}"}>Show</.link>
+    </div>
+    <.link patch={~p"/bows/#{bow}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, bow}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: bow.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="bow-modal" show on_cancel={JS.patch(~p"/bows")}>
+  <.live_component
+    module={BowBuilderAppWeb.BowLive.FormComponent}
+    id={@bow.id || :new}
+    title={@page_title}
+    action={@live_action}
+    bow={@bow}
+    patch={~p"/bows"}
+  />
+</.modal>

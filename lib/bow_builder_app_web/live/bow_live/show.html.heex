@@ -1,0 +1,26 @@
+<.header>
+  Bow <%= @bow.id %>
+  <:subtitle>This is a bow record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/bows/#{@bow}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit bow</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @bow.name %></:item>
+</.list>
+
+<.back navigate={~p"/bows"}>Back to bows</.back>
+
+<.modal :if={@live_action == :edit} id="bow-modal" show on_cancel={JS.patch(~p"/bows/#{@bow}")}>
+  <.live_component
+    module={BowBuilderAppWeb.BowLive.FormComponent}
+    id={@bow.id}
+    title={@page_title}
+    action={@live_action}
+    bow={@bow}
+    patch={~p"/bows/#{@bow}"}
+  />
+</.modal>
