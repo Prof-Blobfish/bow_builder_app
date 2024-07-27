@@ -2,7 +2,7 @@
   Listing Bow components
   <:actions>
     <.link patch={~p"/bow_components/new"}>
-      <.button>New Bow component</.button>
+      <.button>New Bow Component</.button>
     </.link>
   </:actions>
 </.header>
@@ -10,7 +10,7 @@
 <.table
   id="bow_components"
   rows={@streams.bow_components}
-  row_click={fn {_id, bow_component} -> JS.navigate(~p"/bow_components/#{bow_component}") end}
+  row_click={fn {_id, bow_component} -> JS.navigate(~p"/bows/#{@bow_id}/bow_components/#{bow_component}") end}
 >
   <:col :let={{_id, bow_component}} label="Option values"><%= bow_component.option_values %></:col>
   <:action :let={{_id, bow_component}}>
@@ -29,13 +29,14 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="bow_component-modal" show on_cancel={JS.patch(~p"/bow_components")}>
+<.modal :if={@live_action in [:new, :edit]} id="bow_component-modal" show on_cancel={JS.patch(~p"/bows/#{@bow_id}")}>
   <.live_component
     module={BowBuilderAppWeb.BowComponentLive.FormComponent}
     id={@bow_component.id || :new}
     title={@page_title}
     action={@live_action}
     bow_component={@bow_component}
-    patch={~p"/bow_components"}
+    patch={~p"/"}
+    risers_catalog={@risers_catalog}
   />
 </.modal>

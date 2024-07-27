@@ -19,6 +19,7 @@ defmodule BowBuilderAppWeb.BowLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+
         <.input field={@form[:name]} type="text" label="Name" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Bow</.button>

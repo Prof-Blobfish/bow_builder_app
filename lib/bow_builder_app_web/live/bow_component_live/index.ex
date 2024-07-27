@@ -1,12 +1,34 @@
 defmodule BowBuilderAppWeb.BowComponentLive.Index do
   use BowBuilderAppWeb, :live_view
 
+  import Ecto.Query, warn: false
+
   alias BowBuilderApp.BowComponents
-  alias BowBuilderApp.BowComponents.BowComponent
+  alias BowBuilderApp.BowComponents.{BowComponent, Component}
+  alias BowBuilderApp.Repo
+
+  def list_components_by_type(type) do
+    from(c in Component, where: c.type == ^type)
+    |> Repo.all()
+    |> IO.inspect(label: "Catalogs")
+  end
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    bow_id = params["bow_id"]
+    component_type = params["type"]
+
+    changeset = BowComponents.change_bow_component(%BowComponent{})
+    socket =
+      socket
+      |> assign(changeset: changeset, bow_id: bow_id, type: component_type)
+      |> assign(:risers_catalog, list_components_by_type("riser"))
+
+    IO.inspect(socket.assigns.risers_catalog, label: "Risers Catalog")
+
     {:ok, stream(socket, :bow_components, BowComponents.list_bow_components())}
+
+
   end
 
   @impl true
@@ -16,19 +38,19 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Bow component")
+    |> assign(:page_title, "Edit Bow Component")
     |> assign(:bow_component, BowComponents.get_bow_component!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Bow component")
+    |> assign(:page_title, "New Bow Component")
     |> assign(:bow_component, %BowComponent{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Bow components")
+    |> assign(:page_title, "Listing Bow Components")
     |> assign(:bow_component, nil)
   end
 

@@ -1,5 +1,6 @@
 defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
   use BowBuilderAppWeb, :live_component
+  import Phoenix.HTML.Form
 
   alias BowBuilderApp.BowComponents
 
@@ -19,6 +20,13 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+
+        <%= Phoenix.HTML.Form.select(
+            @form,
+            :component_id,
+            Enum.map(@risers_catalog, &{&1.name, &1.id}),
+            prompt: "Choose a riser"
+          ) %>
 
         <:actions>
           <.button phx-disable-with="Saving...">Save Bow component</.button>

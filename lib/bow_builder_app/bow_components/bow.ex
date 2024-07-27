@@ -5,6 +5,7 @@ defmodule BowBuilderApp.BowComponents.Bow do
   schema "bows" do
     field :name, :string
     field :user_id, :id
+    has_many :bow_components, BowBuilderApp.BowComponents.BowComponent
 
     timestamps(type: :utc_datetime)
   end

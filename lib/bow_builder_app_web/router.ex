@@ -43,12 +43,12 @@ defmodule BowBuilderAppWeb.Router do
     live "/component_options/:id", ComponentOptionLive.Show, :show
     live "/component_options/:id/show/edit", ComponentOptionLive.Show, :edit
 
-    live "/bow_components", BowComponentLive.Index, :index
-    live "/bow_components/new", BowComponentLive.Index, :new
-    live "/bow_components/:id/edit", BowComponentLive.Index, :edit
+    live "/bows/:bow_id/bow_components", BowComponentLive.Index, :index
+    live "/bows/:bow_id/bow_components/new", BowComponentLive.Index, :new
+    live "/bows/:bow_id/bow_components/:id/edit", BowComponentLive.Index, :edit
 
-    live "/bow_components/:id", BowComponentLive.Show, :show
-    live "/bow_components/:id/show/edit", BowComponentLive.Show, :edit
+    live "/bows/:bow_id/bow_components/:id", BowComponentLive.Show, :show
+    live "/bows/:bow_id/bow_components/:id/show/edit", BowComponentLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

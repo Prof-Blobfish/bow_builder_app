@@ -1,6 +1,6 @@
 <.header>
-  Bow <%= @bow.id %>
-  <:subtitle>This is a bow record from your database.</:subtitle>
+  <%= @bow.name %>
+  <:subtitle>ID: <%= @bow.id %></:subtitle>
   <:actions>
     <.link patch={~p"/bows/#{@bow}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit bow</.button>
@@ -8,9 +8,11 @@
   </:actions>
 </.header>
 
-<.list>
-  <:item title="Name"><%= @bow.name %></:item>
-</.list>
+<%= if Enum.member?(@bow.bow_components, %{type: "riser"}) do %>
+  <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}>Riser: <%= @riser.name %></.link>
+<% else %>
+  <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>Riser: None selected</.link>
+<% end %><br>
 
 <.back navigate={~p"/bows"}>Back to bows</.back>
 
