@@ -41,7 +41,12 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"component_option" => component_option_params}, socket) do
-    changeset = BowComponents.change_component_option(socket.assigns.component_option, component_option_params)
+    changeset =
+      BowComponents.change_component_option(
+        socket.assigns.component_option,
+        component_option_params
+      )
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
@@ -50,7 +55,10 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
   end
 
   defp save_component_option(socket, :edit, component_option_params) do
-    case BowComponents.update_component_option(socket.assigns.component_option, component_option_params) do
+    case BowComponents.update_component_option(
+           socket.assigns.component_option,
+           component_option_params
+         ) do
       {:ok, component_option} ->
         notify_parent({:saved, component_option})
 

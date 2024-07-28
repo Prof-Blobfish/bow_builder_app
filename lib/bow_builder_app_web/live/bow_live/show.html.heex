@@ -12,7 +12,8 @@
   <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}>Riser: <%= @riser.name %></.link>
 <% else %>
   <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>Riser: None selected</.link>
-<% end %><br>
+<% end %>
+<br />
 
 <.back navigate={~p"/bows"}>Back to bows</.back>
 

@@ -37,7 +37,9 @@ defmodule BowBuilderApp.BowComponentsTest do
       component = component_fixture()
       update_attrs = %{name: "some updated name", type: "some updated type", price: 456.7}
 
-      assert {:ok, %Component{} = component} = BowComponents.update_component(component, update_attrs)
+      assert {:ok, %Component{} = component} =
+               BowComponents.update_component(component, update_attrs)
+
       assert component.name == "some updated name"
       assert component.type == "some updated type"
       assert component.price == 456.7
@@ -45,7 +47,10 @@ defmodule BowBuilderApp.BowComponentsTest do
 
     test "update_component/2 with invalid data returns error changeset" do
       component = component_fixture()
-      assert {:error, %Ecto.Changeset{}} = BowComponents.update_component(component, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               BowComponents.update_component(component, @invalid_attrs)
+
       assert component == BowComponents.get_component!(component.id)
     end
 
@@ -81,7 +86,9 @@ defmodule BowBuilderApp.BowComponentsTest do
     test "create_component_option/1 with valid data creates a component_option" do
       valid_attrs = %{name: "some name", value: "some value"}
 
-      assert {:ok, %ComponentOption{} = component_option} = BowComponents.create_component_option(valid_attrs)
+      assert {:ok, %ComponentOption{} = component_option} =
+               BowComponents.create_component_option(valid_attrs)
+
       assert component_option.name == "some name"
       assert component_option.value == "some value"
     end
@@ -94,21 +101,29 @@ defmodule BowBuilderApp.BowComponentsTest do
       component_option = component_option_fixture()
       update_attrs = %{name: "some updated name", value: "some updated value"}
 
-      assert {:ok, %ComponentOption{} = component_option} = BowComponents.update_component_option(component_option, update_attrs)
+      assert {:ok, %ComponentOption{} = component_option} =
+               BowComponents.update_component_option(component_option, update_attrs)
+
       assert component_option.name == "some updated name"
       assert component_option.value == "some updated value"
     end
 
     test "update_component_option/2 with invalid data returns error changeset" do
       component_option = component_option_fixture()
-      assert {:error, %Ecto.Changeset{}} = BowComponents.update_component_option(component_option, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               BowComponents.update_component_option(component_option, @invalid_attrs)
+
       assert component_option == BowComponents.get_component_option!(component_option.id)
     end
 
     test "delete_component_option/1 deletes the component_option" do
       component_option = component_option_fixture()
       assert {:ok, %ComponentOption{}} = BowComponents.delete_component_option(component_option)
-      assert_raise Ecto.NoResultsError, fn -> BowComponents.get_component_option!(component_option.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        BowComponents.get_component_option!(component_option.id)
+      end
     end
 
     test "change_component_option/1 returns a component_option changeset" do
@@ -191,7 +206,9 @@ defmodule BowBuilderApp.BowComponentsTest do
     test "create_bow_component/1 with valid data creates a bow_component" do
       valid_attrs = %{option_values: %{}}
 
-      assert {:ok, %BowComponent{} = bow_component} = BowComponents.create_bow_component(valid_attrs)
+      assert {:ok, %BowComponent{} = bow_component} =
+               BowComponents.create_bow_component(valid_attrs)
+
       assert bow_component.option_values == %{}
     end
 
@@ -203,20 +220,28 @@ defmodule BowBuilderApp.BowComponentsTest do
       bow_component = bow_component_fixture()
       update_attrs = %{option_values: %{}}
 
-      assert {:ok, %BowComponent{} = bow_component} = BowComponents.update_bow_component(bow_component, update_attrs)
+      assert {:ok, %BowComponent{} = bow_component} =
+               BowComponents.update_bow_component(bow_component, update_attrs)
+
       assert bow_component.option_values == %{}
     end
 
     test "update_bow_component/2 with invalid data returns error changeset" do
       bow_component = bow_component_fixture()
-      assert {:error, %Ecto.Changeset{}} = BowComponents.update_bow_component(bow_component, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               BowComponents.update_bow_component(bow_component, @invalid_attrs)
+
       assert bow_component == BowComponents.get_bow_component!(bow_component.id)
     end
 
     test "delete_bow_component/1 deletes the bow_component" do
       bow_component = bow_component_fixture()
       assert {:ok, %BowComponent{}} = BowComponents.delete_bow_component(bow_component)
-      assert_raise Ecto.NoResultsError, fn -> BowComponents.get_bow_component!(bow_component.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        BowComponents.get_bow_component!(bow_component.id)
+      end
     end
 
     test "change_bow_component/1 returns a bow_component changeset" do

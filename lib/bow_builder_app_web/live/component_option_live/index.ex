@@ -33,7 +33,10 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.Index do
   end
 
   @impl true
-  def handle_info({BowBuilderAppWeb.ComponentOptionLive.FormComponent, {:saved, component_option}}, socket) do
+  def handle_info(
+        {BowBuilderAppWeb.ComponentOptionLive.FormComponent, {:saved, component_option}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :component_options, component_option)}
   end
 

@@ -49,7 +49,9 @@ defmodule BowBuilderAppWeb.ComponentOptionLiveTest do
     test "updates component_option in listing", %{conn: conn, component_option: component_option} do
       {:ok, index_live, _html} = live(conn, ~p"/component_options")
 
-      assert index_live |> element("#component_options-#{component_option.id} a", "Edit") |> render_click() =~
+      assert index_live
+             |> element("#component_options-#{component_option.id} a", "Edit")
+             |> render_click() =~
                "Edit Component option"
 
       assert_patch(index_live, ~p"/component_options/#{component_option}/edit")
@@ -72,7 +74,10 @@ defmodule BowBuilderAppWeb.ComponentOptionLiveTest do
     test "deletes component_option in listing", %{conn: conn, component_option: component_option} do
       {:ok, index_live, _html} = live(conn, ~p"/component_options")
 
-      assert index_live |> element("#component_options-#{component_option.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#component_options-#{component_option.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#component_options-#{component_option.id}")
     end
   end
@@ -87,7 +92,10 @@ defmodule BowBuilderAppWeb.ComponentOptionLiveTest do
       assert html =~ component_option.name
     end
 
-    test "updates component_option within modal", %{conn: conn, component_option: component_option} do
+    test "updates component_option within modal", %{
+      conn: conn,
+      component_option: component_option
+    } do
       {:ok, show_live, _html} = live(conn, ~p"/component_options/#{component_option}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~

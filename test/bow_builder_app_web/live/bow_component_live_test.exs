@@ -47,7 +47,9 @@ defmodule BowBuilderAppWeb.BowComponentLiveTest do
     test "updates bow_component in listing", %{conn: conn, bow_component: bow_component} do
       {:ok, index_live, _html} = live(conn, ~p"/bow_components")
 
-      assert index_live |> element("#bow_components-#{bow_component.id} a", "Edit") |> render_click() =~
+      assert index_live
+             |> element("#bow_components-#{bow_component.id} a", "Edit")
+             |> render_click() =~
                "Edit Bow component"
 
       assert_patch(index_live, ~p"/bow_components/#{bow_component}/edit")
@@ -69,7 +71,10 @@ defmodule BowBuilderAppWeb.BowComponentLiveTest do
     test "deletes bow_component in listing", %{conn: conn, bow_component: bow_component} do
       {:ok, index_live, _html} = live(conn, ~p"/bow_components")
 
-      assert index_live |> element("#bow_components-#{bow_component.id} a", "Delete") |> render_click()
+      assert index_live
+             |> element("#bow_components-#{bow_component.id} a", "Delete")
+             |> render_click()
+
       refute has_element?(index_live, "#bow_components-#{bow_component.id}")
     end
   end

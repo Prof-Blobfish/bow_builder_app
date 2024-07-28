@@ -10,7 +10,9 @@
 <.table
   id="component_options"
   rows={@streams.component_options}
-  row_click={fn {_id, component_option} -> JS.navigate(~p"/component_options/#{component_option}") end}
+  row_click={
+    fn {_id, component_option} -> JS.navigate(~p"/component_options/#{component_option}") end
+  }
 >
   <:col :let={{_id, component_option}} label="Name"><%= component_option.name %></:col>
   <:col :let={{_id, component_option}} label="Value"><%= component_option.value %></:col>
@@ -30,7 +32,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="component_option-modal" show on_cancel={JS.patch(~p"/component_options")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="component_option-modal"
+  show
+  on_cancel={JS.patch(~p"/component_options")}
+>
   <.live_component
     module={BowBuilderAppWeb.ComponentOptionLive.FormComponent}
     id={@component_option.id || :new}

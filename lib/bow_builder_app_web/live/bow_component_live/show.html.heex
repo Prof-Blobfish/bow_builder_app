@@ -14,7 +14,12 @@
 
 <.back navigate={~p"/bow_components"}>Back to bow_components</.back>
 
-<.modal :if={@live_action == :edit} id="bow_component-modal" show on_cancel={JS.patch(~p"/bow_components/#{@bow_component}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="bow_component-modal"
+  show
+  on_cancel={JS.patch(~p"/bow_components/#{@bow_component}")}
+>
   <.live_component
     module={BowBuilderAppWeb.BowComponentLive.FormComponent}
     id={@bow_component.id}

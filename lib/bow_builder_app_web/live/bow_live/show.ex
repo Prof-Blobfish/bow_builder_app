@@ -30,8 +30,7 @@ defmodule BowBuilderAppWeb.BowLive.Show do
      |> assign(limbs: limbs)
      |> assign(stabs: stabs)
      |> assign(sight: sight)
-     |> IO.inspect()
-    }
+     |> IO.inspect()}
   end
 
   defp page_title(:show), do: "Show Bow"

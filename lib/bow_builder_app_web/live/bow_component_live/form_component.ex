@@ -1,8 +1,13 @@
 defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
   use BowBuilderAppWeb, :live_component
-  import Phoenix.HTML.Form
 
   alias BowBuilderApp.BowComponents
+
+  @risers_catalog [
+    %{name: "Uncle Grandpa", id: 1},
+    %{name: "is a f'n", id: 2},
+    %{name: "GENIUS", id: 3}
+  ]
 
   @impl true
   def render(assigns) do
@@ -20,14 +25,13 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-
-        <%= Phoenix.HTML.Form.select(
-            @form,
-            :component_id,
-            Enum.map(@risers_catalog, &{&1.name, &1.id}),
-            prompt: "Choose a riser"
-          ) %>
-
+        <.input
+          field={@form[:component_id]}
+          type="select"
+          label="component_id"
+          options={@components}
+          prompt="Choose a riser"
+        />
         <:actions>
           <.button phx-disable-with="Saving...">Save Bow component</.button>
         </:actions>
@@ -41,6 +45,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:components, Enum.map(@risers_catalog, &{&1.name, &1.id}))
      |> assign_new(:form, fn ->
        to_form(BowComponents.change_bow_component(bow_component))
      end)}
@@ -48,7 +53,9 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"bow_component" => bow_component_params}, socket) do
-    changeset = BowComponents.change_bow_component(socket.assigns.bow_component, bow_component_params)
+    changeset =
+      BowComponents.change_bow_component(socket.assigns.bow_component, bow_component_params)
+
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 

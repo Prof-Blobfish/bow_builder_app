@@ -19,6 +19,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
     component_type = params["type"]
 
     changeset = BowComponents.change_bow_component(%BowComponent{})
+
     socket =
       socket
       |> assign(changeset: changeset, bow_id: bow_id, type: component_type)
@@ -27,8 +28,6 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
     IO.inspect(socket.assigns.risers_catalog, label: "Risers Catalog")
 
     {:ok, stream(socket, :bow_components, BowComponents.list_bow_components())}
-
-
   end
 
   @impl true
@@ -55,7 +54,10 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
   end
 
   @impl true
-  def handle_info({BowBuilderAppWeb.BowComponentLive.FormComponent, {:saved, bow_component}}, socket) do
+  def handle_info(
+        {BowBuilderAppWeb.BowComponentLive.FormComponent, {:saved, bow_component}},
+        socket
+      ) do
     {:noreply, stream_insert(socket, :bow_components, bow_component)}
   end
 

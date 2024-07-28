@@ -16,7 +16,12 @@
 
 <.back navigate={~p"/components"}>Back to components</.back>
 
-<.modal :if={@live_action == :edit} id="component-modal" show on_cancel={JS.patch(~p"/components/#{@component}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="component-modal"
+  show
+  on_cancel={JS.patch(~p"/components/#{@component}")}
+>
   <.live_component
     module={BowBuilderAppWeb.ComponentLive.FormComponent}
     id={@component.id}

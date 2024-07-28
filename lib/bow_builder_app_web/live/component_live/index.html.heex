@@ -31,7 +31,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="component-modal" show on_cancel={JS.patch(~p"/components")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="component-modal"
+  show
+  on_cancel={JS.patch(~p"/components")}
+>
   <.live_component
     module={BowBuilderAppWeb.ComponentLive.FormComponent}
     id={@component.id || :new}

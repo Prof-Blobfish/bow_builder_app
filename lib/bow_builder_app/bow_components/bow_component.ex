@@ -6,7 +6,7 @@ defmodule BowBuilderApp.BowComponents.BowComponent do
     field :option_values, :map
     field :component_id, :id
     field :bow_id, :id
-    #belongs_to :bow, BowBuilderApp.BowComponents.Bow
+    # belongs_to :bow, BowBuilderApp.BowComponents.Bow
 
     timestamps(type: :utc_datetime)
   end
