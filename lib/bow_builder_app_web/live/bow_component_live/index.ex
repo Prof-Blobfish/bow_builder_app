@@ -10,22 +10,19 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
   def list_components_by_type(type) do
     from(c in Component, where: c.type == ^type)
     |> Repo.all()
-    |> IO.inspect(label: "Catalogs")
   end
 
   @impl true
   def mount(params, _session, socket) do
     bow_id = params["bow_id"]
-    component_type = params["type"]
+    type = params["type"]
 
     changeset = BowComponents.change_bow_component(%BowComponent{})
 
     socket =
       socket
-      |> assign(changeset: changeset, bow_id: bow_id, type: component_type)
-      |> assign(:risers_catalog, list_components_by_type("riser"))
-
-    IO.inspect(socket.assigns.risers_catalog, label: "Risers Catalog")
+      |> assign(changeset: changeset, bow_id: bow_id, type: type)
+      |> assign(:catalog, list_components_by_type(type))
 
     {:ok, stream(socket, :bow_components, BowComponents.list_bow_components())}
   end

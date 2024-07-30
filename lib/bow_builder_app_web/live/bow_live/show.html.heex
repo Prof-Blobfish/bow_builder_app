@@ -8,8 +8,8 @@
   </:actions>
 </.header>
 
-<%= if Enum.member?(@bow.bow_components, %{type: "riser"}) do %>
-  <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}>Riser: <%= @riser.name %></.link>
+<%= if @riser do %>
+  <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}>Riser: <%= @riser.component.name %></.link>
 <% else %>
   <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>Riser: None selected</.link>
 <% end %>
