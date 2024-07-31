@@ -81,7 +81,6 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
       |> Map.put("type", socket.assigns.type)
       |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
       |> Enum.into(%{})
-      |> IO.inspect()
 
     case BowComponents.create_bow_component(bow_component_params) do
       {:ok, bow_component} ->

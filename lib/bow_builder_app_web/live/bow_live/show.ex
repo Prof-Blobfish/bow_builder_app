@@ -14,7 +14,6 @@ defmodule BowBuilderAppWeb.BowLive.Show do
     bow =
       BowComponents.get_bow!(id)
       |> Repo.preload(bow_components: [:component])
-      |> IO.inspect()
 
     riser = Enum.find(bow.bow_components, fn component -> component.type == "riser" end)
     limbs = Enum.find(bow.bow_components, fn component -> component.type == "limbs" end)
@@ -22,7 +21,6 @@ defmodule BowBuilderAppWeb.BowLive.Show do
     sight = Enum.find(bow.bow_components, fn component -> component.type == "sight" end)
 
     _components_found = [riser, limbs, stabs, sight]
-    IO.inspect(riser)
 
     {:noreply,
      socket

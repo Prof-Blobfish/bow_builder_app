@@ -5,10 +5,9 @@ defmodule BowBuilderApp.BowComponents.BowComponent do
   schema "bow_components" do
     field :option_values, :map
     field :type, :string
-    field :bow_id, :integer
     #field :component_id, :integer
     belongs_to :component, BowBuilderApp.BowComponents.Component
-    # belongs_to :bow, BowBuilderApp.BowComponents.Bow
+    belongs_to :bow, BowBuilderApp.BowComponents.Bow
 
     timestamps(type: :utc_datetime)
   end

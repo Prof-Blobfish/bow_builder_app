@@ -13,6 +13,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
   end
 
   @impl true
+
   def mount(params, _session, socket) do
     bow_id = params["bow_id"]
     type = params["type"]
@@ -21,8 +22,10 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
 
     socket =
       socket
-      |> assign(changeset: changeset, bow_id: bow_id, type: type)
-      |> assign(:catalog, list_components_by_type(type))
+      |> assign(
+        changeset: changeset,
+        bow_id: bow_id,
+        type: type)
 
     {:ok, stream(socket, :bow_components, BowComponents.list_bow_components())}
   end
@@ -36,12 +39,14 @@ defmodule BowBuilderAppWeb.BowComponentLive.Index do
     socket
     |> assign(:page_title, "Edit Bow Component")
     |> assign(:bow_component, BowComponents.get_bow_component!(id))
+    |> assign(:catalog, list_components_by_type(socket.assigns.type))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Bow Component")
     |> assign(:bow_component, %BowComponent{})
+    |> assign(:catalog, list_components_by_type(socket.assigns.type))
   end
 
   defp apply_action(socket, :index, _params) do

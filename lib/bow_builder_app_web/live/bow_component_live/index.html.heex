@@ -1,7 +1,7 @@
 <.header>
   Listing Bow components
   <:actions>
-    <.link patch={~p"/bow/#{@bow_id}/bow_components/new"}>
+    <.link patch={~p"/bows/#{@bow_id}/bow_components/new"}>
       <.button>New Bow component</.button>
     </.link>
   </:actions>
@@ -15,9 +15,9 @@
   <:col :let={{_id, bow_component}} label="Option values"><%= bow_component.option_values %></:col>
   <:action :let={{_id, bow_component}}>
     <div class="sr-only">
-      <.link navigate={~p"/bow/#{@bow_id}/bow_components/#{bow_component}"}>Show</.link>
+      <.link navigate={~p"/bows/#{@bow_id}/bow_components/#{bow_component}"}>Show</.link>
     </div>
-    <.link patch={~p"/bow/#{@bow_id}/bow_components/#{bow_component}/edit"}>Edit</.link>
+    <.link patch={~p"/bows/#{@bow_id}/bow_components/#{bow_component}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, bow_component}}>
     <.link

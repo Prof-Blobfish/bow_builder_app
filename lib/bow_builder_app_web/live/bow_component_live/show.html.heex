@@ -1,9 +1,9 @@
 <.header>
-  Bow component <%= @bow_component.id %>
+  <%= "#{@bow_component.component.name} | ##{@bow_component.component.id}" %>
   <:subtitle>This is a bow_component record from your database.</:subtitle>
   <:actions>
-    <.link patch={~p"/bow_components/#{@bow_component}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit bow_component</.button>
+    <.link patch={~p"/bows/#{@bow_component.bow_id}/bow_components/#{@bow_component}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Change <%= @bow_component.type %></.button>
     </.link>
   </:actions>
 </.header>
@@ -12,13 +12,13 @@
   <:item title="Option values"><%= @bow_component.option_values %></:item>
 </.list>
 
-<.back navigate={~p"/bow_components"}>Back to bow_components</.back>
+<.back navigate={~p"/bows/#{@bow_component.bow_id}"}>Back to <%= @bow_component.bow.name %></.back>
 
 <.modal
   :if={@live_action == :edit}
   id="bow_component-modal"
   show
-  on_cancel={JS.patch(~p"/bow_components/#{@bow_component}")}
+  on_cancel={JS.patch(~p"/bows/#{@bow_component.bow_id}/bow_components/#{@bow_component}")}
 >
   <.live_component
     module={BowBuilderAppWeb.BowComponentLive.FormComponent}
@@ -26,6 +26,8 @@
     title={@page_title}
     action={@live_action}
     bow_component={@bow_component}
-    patch={~p"/bow_components/#{@bow_component}"}
+    bow={@bow_component.bow}
+    catalog={@catalog}
+    patch={~p"/bows/#{@bow_component.bow_id}/bow_components/#{@bow_component}"}
   />
 </.modal>
