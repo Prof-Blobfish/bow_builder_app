@@ -19,7 +19,13 @@ defmodule BowBuilderAppWeb.ComponentLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:type]} type="text" label="Type" />
+      <.input
+          field={@form[:type]}
+          type="select"
+          label="type:"
+          options={["riser","limbs","sight","stabs"]}
+          prompt="Choose part type"
+        />
         <.input field={@form[:name]} type="text" label="Name" />
         <.input field={@form[:price]} type="number" label="Price" step="any" />
         <:actions>

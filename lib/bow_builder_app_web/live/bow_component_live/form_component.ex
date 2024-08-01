@@ -22,9 +22,9 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
         <.input
           field={@form[:component_id]}
           type="select"
-          label="Riser Model:"
+          label="Part Model:"
           options={@components}
-          prompt="Choose a riser"
+          prompt="Choose a model"
         />
         <:actions>
           <.button phx-disable-with="Saving...">Save Bow Component</.button>

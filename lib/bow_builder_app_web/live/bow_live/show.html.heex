@@ -8,12 +8,49 @@
   </:actions>
 </.header>
 
-<%= if @riser do %>
-  <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}>Riser: <%= @riser.component.name %></.link>
-<% else %>
-  <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>Riser: None selected</.link>
+<.list>
+  <:item title="Riser:">
+    <%= if @riser do %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}><%= @riser.component.name %></.link>
+    <% else %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>None selected</.link>
+    <% end %>
+  </:item>
+
+  <:item title="Limbs:">
+    <%= if @limbs do %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@limbs.id}"}><%= @limbs.component.name %></.link>
+    <% else %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"limbs"}"}>None selected</.link>
+    <% end %>
+  </:item>
+
+  <:item title="Sight:">
+    <%= if @sight do %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@sight.id}"}><%= @sight.component.name %></.link>
+    <% else %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"sight"}"}>None selected</.link>
+    <% end %>
+  </:item>
+
+  <:item title="Stabilizers:">
+    <%= if @stabs do %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@stabs.id}"}><%= @stabs.component.name %></.link>
+    <% else %>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"stabs"}"}>None selected</.link>
+    <% end %>
+  </:item>
+</.list>
+
+<!--
+<%= for bow_component <- @bow.bow_components do %>
+  <.list>
+    <:item title={bow_component.component.type}>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}><%= bow_component.component.name %></.link>
+    </:item>
+  </.list>
 <% end %>
-<br />
+-->
 
 <.back navigate={~p"/bows"}>Back to bows</.back>
 
