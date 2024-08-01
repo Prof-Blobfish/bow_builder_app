@@ -27,7 +27,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
           prompt="Choose a riser"
         />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Bow component</.button>
+          <.button phx-disable-with="Saving...">Save Bow Component</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -65,7 +65,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
         {:noreply,
          socket
          |> put_flash(:info, "Bow component updated successfully")
-         |> push_navigate(to: "/bows/#{socket.assigns.bow_id}")
+         |> push_navigate(to: "/bows/#{socket.assigns.bow.id}")
          #|> push_patch(to: socket.assigns.patch)
          }
 
