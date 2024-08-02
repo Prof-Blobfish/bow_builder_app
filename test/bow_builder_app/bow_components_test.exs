@@ -66,69 +66,69 @@ defmodule BowBuilderApp.BowComponentsTest do
     end
   end
 
-  describe "component_options" do
-    alias BowBuilderApp.BowComponents.ComponentOption
+  describe "option_types" do
+    alias BowBuilderApp.BowComponents.OptionType
 
     import BowBuilderApp.BowComponentsFixtures
 
     @invalid_attrs %{name: nil, value: nil}
 
-    test "list_component_options/0 returns all component_options" do
-      component_option = component_option_fixture()
-      assert BowComponents.list_component_options() == [component_option]
+    test "list_option_types/0 returns all option_types" do
+      option_type = option_type_fixture()
+      assert BowComponents.list_option_types() == [option_type]
     end
 
-    test "get_component_option!/1 returns the component_option with given id" do
-      component_option = component_option_fixture()
-      assert BowComponents.get_component_option!(component_option.id) == component_option
+    test "get_option_type!/1 returns the option_type with given id" do
+      option_type = option_type_fixture()
+      assert BowComponents.get_option_type!(option_type.id) == option_type
     end
 
-    test "create_component_option/1 with valid data creates a component_option" do
+    test "create_option_type/1 with valid data creates a option_type" do
       valid_attrs = %{name: "some name", value: "some value"}
 
-      assert {:ok, %ComponentOption{} = component_option} =
-               BowComponents.create_component_option(valid_attrs)
+      assert {:ok, %OptionType{} = option_type} =
+               BowComponents.create_option_type(valid_attrs)
 
-      assert component_option.name == "some name"
-      assert component_option.value == "some value"
+      assert option_type.name == "some name"
+      assert option_type.value == "some value"
     end
 
-    test "create_component_option/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = BowComponents.create_component_option(@invalid_attrs)
+    test "create_option_type/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = BowComponents.create_option_type(@invalid_attrs)
     end
 
-    test "update_component_option/2 with valid data updates the component_option" do
-      component_option = component_option_fixture()
+    test "update_option_type/2 with valid data updates the option_type" do
+      option_type = option_type_fixture()
       update_attrs = %{name: "some updated name", value: "some updated value"}
 
-      assert {:ok, %ComponentOption{} = component_option} =
-               BowComponents.update_component_option(component_option, update_attrs)
+      assert {:ok, %OptionType{} = option_type} =
+               BowComponents.update_option_type(option_type, update_attrs)
 
-      assert component_option.name == "some updated name"
-      assert component_option.value == "some updated value"
+      assert option_type.name == "some updated name"
+      assert option_type.value == "some updated value"
     end
 
-    test "update_component_option/2 with invalid data returns error changeset" do
-      component_option = component_option_fixture()
+    test "update_option_type/2 with invalid data returns error changeset" do
+      option_type = option_type_fixture()
 
       assert {:error, %Ecto.Changeset{}} =
-               BowComponents.update_component_option(component_option, @invalid_attrs)
+               BowComponents.update_option_type(option_type, @invalid_attrs)
 
-      assert component_option == BowComponents.get_component_option!(component_option.id)
+      assert option_type == BowComponents.get_option_type!(option_type.id)
     end
 
-    test "delete_component_option/1 deletes the component_option" do
-      component_option = component_option_fixture()
-      assert {:ok, %ComponentOption{}} = BowComponents.delete_component_option(component_option)
+    test "delete_option_type/1 deletes the option_type" do
+      option_type = option_type_fixture()
+      assert {:ok, %OptionType{}} = BowComponents.delete_option_type(option_type)
 
       assert_raise Ecto.NoResultsError, fn ->
-        BowComponents.get_component_option!(component_option.id)
+        BowComponents.get_option_type!(option_type.id)
       end
     end
 
-    test "change_component_option/1 returns a component_option changeset" do
-      component_option = component_option_fixture()
-      assert %Ecto.Changeset{} = BowComponents.change_component_option(component_option)
+    test "change_option_type/1 returns a option_type changeset" do
+      option_type = option_type_fixture()
+      assert %Ecto.Changeset{} = BowComponents.change_option_type(option_type)
     end
   end
 

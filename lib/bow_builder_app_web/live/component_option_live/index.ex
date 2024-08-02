@@ -1,12 +1,12 @@
-defmodule BowBuilderAppWeb.ComponentOptionLive.Index do
+defmodule BowBuilderAppWeb.OptionTypeLive.Index do
   use BowBuilderAppWeb, :live_view
 
   alias BowBuilderApp.BowComponents
-  alias BowBuilderApp.BowComponents.ComponentOption
+  alias BowBuilderApp.BowComponents.OptionType
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :component_options, BowComponents.list_component_options())}
+    {:ok, stream(socket, :option_types, BowComponents.list_option_types())}
   end
 
   @impl true
@@ -17,34 +17,34 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Component option")
-    |> assign(:component_option, BowComponents.get_component_option!(id))
+    |> assign(:option_type, BowComponents.get_option_type!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Component option")
-    |> assign(:component_option, %ComponentOption{})
+    |> assign(:option_type, %OptionType{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Component options")
-    |> assign(:component_option, nil)
+    |> assign(:option_type, nil)
   end
 
   @impl true
   def handle_info(
-        {BowBuilderAppWeb.ComponentOptionLive.FormComponent, {:saved, component_option}},
+        {BowBuilderAppWeb.OptionTypeLive.FormComponent, {:saved, option_type}},
         socket
       ) do
-    {:noreply, stream_insert(socket, :component_options, component_option)}
+    {:noreply, stream_insert(socket, :option_types, option_type)}
   end
 
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
-    component_option = BowComponents.get_component_option!(id)
-    {:ok, _} = BowComponents.delete_component_option(component_option)
+    option_type = BowComponents.get_option_type!(id)
+    {:ok, _} = BowComponents.delete_option_type(option_type)
 
-    {:noreply, stream_delete(socket, :component_options, component_option)}
+    {:noreply, stream_delete(socket, :option_types, option_type)}
   end
 end

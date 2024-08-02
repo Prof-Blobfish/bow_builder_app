@@ -1,30 +1,30 @@
 <.header>
   Listing Component options
   <:actions>
-    <.link patch={~p"/component_options/new"}>
+    <.link patch={~p"/option_types/new"}>
       <.button>New Component option</.button>
     </.link>
   </:actions>
 </.header>
 
 <.table
-  id="component_options"
-  rows={@streams.component_options}
+  id="option_types"
+  rows={@streams.option_types}
   row_click={
-    fn {_id, component_option} -> JS.navigate(~p"/component_options/#{component_option}") end
+    fn {_id, option_type} -> JS.navigate(~p"/option_types/#{option_type}") end
   }
 >
-  <:col :let={{_id, component_option}} label="Name"><%= component_option.name %></:col>
-  <:col :let={{_id, component_option}} label="Value"><%= component_option.value %></:col>
-  <:action :let={{_id, component_option}}>
+  <:col :let={{_id, option_type}} label="Name"><%= option_type.name %></:col>
+  <:col :let={{_id, option_type}} label="Value"><%= option_type.value %></:col>
+  <:action :let={{_id, option_type}}>
     <div class="sr-only">
-      <.link navigate={~p"/component_options/#{component_option}"}>Show</.link>
+      <.link navigate={~p"/option_types/#{option_type}"}>Show</.link>
     </div>
-    <.link patch={~p"/component_options/#{component_option}/edit"}>Edit</.link>
+    <.link patch={~p"/option_types/#{option_type}/edit"}>Edit</.link>
   </:action>
-  <:action :let={{id, component_option}}>
+  <:action :let={{id, option_type}}>
     <.link
-      phx-click={JS.push("delete", value: %{id: component_option.id}) |> hide("##{id}")}
+      phx-click={JS.push("delete", value: %{id: option_type.id}) |> hide("##{id}")}
       data-confirm="Are you sure?"
     >
       Delete
@@ -34,16 +34,16 @@
 
 <.modal
   :if={@live_action in [:new, :edit]}
-  id="component_option-modal"
+  id="option_type-modal"
   show
-  on_cancel={JS.patch(~p"/component_options")}
+  on_cancel={JS.patch(~p"/option_types")}
 >
   <.live_component
-    module={BowBuilderAppWeb.ComponentOptionLive.FormComponent}
-    id={@component_option.id || :new}
+    module={BowBuilderAppWeb.OptionTypeLive.FormComponent}
+    id={@option_type.id || :new}
     title={@page_title}
     action={@live_action}
-    component_option={@component_option}
-    patch={~p"/component_options"}
+    option_type={@option_type}
+    patch={~p"/option_types"}
   />
 </.modal>

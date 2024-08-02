@@ -1,35 +1,35 @@
 <.header>
-  Component option <%= @component_option.id %>
-  <:subtitle>This is a component_option record from your database.</:subtitle>
+  Component option <%= @option_type.id %>
+  <:subtitle>This is a option_type record from your database.</:subtitle>
   <:actions>
     <.link
-      patch={~p"/component_options/#{@component_option}/show/edit"}
+      patch={~p"/option_types/#{@option_type}/show/edit"}
       phx-click={JS.push_focus()}
     >
-      <.button>Edit component_option</.button>
+      <.button>Edit option_type</.button>
     </.link>
   </:actions>
 </.header>
 
 <.list>
-  <:item title="Name"><%= @component_option.name %></:item>
-  <:item title="Value"><%= @component_option.value %></:item>
+  <:item title="Name"><%= @option_type.name %></:item>
+  <:item title="Value"><%= @option_type.value %></:item>
 </.list>
 
-<.back navigate={~p"/component_options"}>Back to component_options</.back>
+<.back navigate={~p"/option_types"}>Back to option_types</.back>
 
 <.modal
   :if={@live_action == :edit}
-  id="component_option-modal"
+  id="option_type-modal"
   show
-  on_cancel={JS.patch(~p"/component_options/#{@component_option}")}
+  on_cancel={JS.patch(~p"/option_types/#{@option_type}")}
 >
   <.live_component
-    module={BowBuilderAppWeb.ComponentOptionLive.FormComponent}
-    id={@component_option.id}
+    module={BowBuilderAppWeb.OptionTypeLive.FormComponent}
+    id={@option_type.id}
     title={@page_title}
     action={@live_action}
-    component_option={@component_option}
-    patch={~p"/component_options/#{@component_option}"}
+    option_type={@option_type}
+    patch={~p"/option_types/#{@option_type}"}
   />
 </.modal>

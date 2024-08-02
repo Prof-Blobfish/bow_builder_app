@@ -21,18 +21,18 @@ defmodule BowBuilderApp.BowComponentsFixtures do
   end
 
   @doc """
-  Generate a component_option.
+  Generate a option_type.
   """
-  def component_option_fixture(attrs \\ %{}) do
-    {:ok, component_option} =
+  def option_type_fixture(attrs \\ %{}) do
+    {:ok, option_type} =
       attrs
       |> Enum.into(%{
         name: "some name",
         value: "some value"
       })
-      |> BowBuilderApp.BowComponents.create_component_option()
+      |> BowBuilderApp.BowComponents.create_option_type()
 
-    component_option
+    option_type
   end
 
   @doc """

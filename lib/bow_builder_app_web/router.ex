@@ -36,12 +36,12 @@ defmodule BowBuilderAppWeb.Router do
     live "/components/:id", ComponentLive.Show, :show
     live "/components/:id/show/edit", ComponentLive.Show, :edit
 
-    live "/component_options", ComponentOptionLive.Index, :index
-    live "/component_options/new", ComponentOptionLive.Index, :new
-    live "/component_options/:id/edit", ComponentOptionLive.Index, :edit
+    live "/option_types", OptionTypeLive.Index, :index
+    live "/option_types/new", OptionTypeLive.Index, :new
+    live "/option_types/:id/edit", OptionTypeLive.Index, :edit
 
-    live "/component_options/:id", ComponentOptionLive.Show, :show
-    live "/component_options/:id/show/edit", ComponentOptionLive.Show, :edit
+    live "/option_types/:id", OptionTypeLive.Show, :show
+    live "/option_types/:id/show/edit", OptionTypeLive.Show, :edit
 
     live "/bows/:bow_id/bow_components", BowComponentLive.Index, :index
     live "/bows/:bow_id/bow_components/new", BowComponentLive.Index, :new

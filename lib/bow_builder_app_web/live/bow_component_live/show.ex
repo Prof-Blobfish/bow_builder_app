@@ -4,7 +4,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.Show do
   import Ecto.Query, warn: false
 
   alias BowBuilderApp.BowComponents
-  alias BowBuilderApp.BowComponents.{BowComponent, Component}
+  alias BowBuilderApp.BowComponents.Component
   alias BowBuilderApp.Repo
 
   def list_components_by_type(type) do

@@ -1,4 +1,4 @@
-defmodule BowBuilderAppWeb.ComponentOptionLiveTest do
+defmodule BowBuilderAppWeb.OptionTypeLiveTest do
   use BowBuilderAppWeb.ConnCase
 
   import Phoenix.LiveViewTest
@@ -8,110 +8,110 @@ defmodule BowBuilderAppWeb.ComponentOptionLiveTest do
   @update_attrs %{name: "some updated name", value: "some updated value"}
   @invalid_attrs %{name: nil, value: nil}
 
-  defp create_component_option(_) do
-    component_option = component_option_fixture()
-    %{component_option: component_option}
+  defp create_option_type(_) do
+    option_type = option_type_fixture()
+    %{option_type: option_type}
   end
 
   describe "Index" do
-    setup [:create_component_option]
+    setup [:create_option_type]
 
-    test "lists all component_options", %{conn: conn, component_option: component_option} do
-      {:ok, _index_live, html} = live(conn, ~p"/component_options")
+    test "lists all option_types", %{conn: conn, option_type: option_type} do
+      {:ok, _index_live, html} = live(conn, ~p"/option_types")
 
       assert html =~ "Listing Component options"
-      assert html =~ component_option.name
+      assert html =~ option_type.name
     end
 
-    test "saves new component_option", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/component_options")
+    test "saves new option_type", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/option_types")
 
       assert index_live |> element("a", "New Component option") |> render_click() =~
                "New Component option"
 
-      assert_patch(index_live, ~p"/component_options/new")
+      assert_patch(index_live, ~p"/option_types/new")
 
       assert index_live
-             |> form("#component_option-form", component_option: @invalid_attrs)
+             |> form("#option_type-form", option_type: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
-             |> form("#component_option-form", component_option: @create_attrs)
+             |> form("#option_type-form", option_type: @create_attrs)
              |> render_submit()
 
-      assert_patch(index_live, ~p"/component_options")
+      assert_patch(index_live, ~p"/option_types")
 
       html = render(index_live)
       assert html =~ "Component option created successfully"
       assert html =~ "some name"
     end
 
-    test "updates component_option in listing", %{conn: conn, component_option: component_option} do
-      {:ok, index_live, _html} = live(conn, ~p"/component_options")
+    test "updates option_type in listing", %{conn: conn, option_type: option_type} do
+      {:ok, index_live, _html} = live(conn, ~p"/option_types")
 
       assert index_live
-             |> element("#component_options-#{component_option.id} a", "Edit")
+             |> element("#option_types-#{option_type.id} a", "Edit")
              |> render_click() =~
                "Edit Component option"
 
-      assert_patch(index_live, ~p"/component_options/#{component_option}/edit")
+      assert_patch(index_live, ~p"/option_types/#{option_type}/edit")
 
       assert index_live
-             |> form("#component_option-form", component_option: @invalid_attrs)
+             |> form("#option_type-form", option_type: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       assert index_live
-             |> form("#component_option-form", component_option: @update_attrs)
+             |> form("#option_type-form", option_type: @update_attrs)
              |> render_submit()
 
-      assert_patch(index_live, ~p"/component_options")
+      assert_patch(index_live, ~p"/option_types")
 
       html = render(index_live)
       assert html =~ "Component option updated successfully"
       assert html =~ "some updated name"
     end
 
-    test "deletes component_option in listing", %{conn: conn, component_option: component_option} do
-      {:ok, index_live, _html} = live(conn, ~p"/component_options")
+    test "deletes option_type in listing", %{conn: conn, option_type: option_type} do
+      {:ok, index_live, _html} = live(conn, ~p"/option_types")
 
       assert index_live
-             |> element("#component_options-#{component_option.id} a", "Delete")
+             |> element("#option_types-#{option_type.id} a", "Delete")
              |> render_click()
 
-      refute has_element?(index_live, "#component_options-#{component_option.id}")
+      refute has_element?(index_live, "#option_types-#{option_type.id}")
     end
   end
 
   describe "Show" do
-    setup [:create_component_option]
+    setup [:create_option_type]
 
-    test "displays component_option", %{conn: conn, component_option: component_option} do
-      {:ok, _show_live, html} = live(conn, ~p"/component_options/#{component_option}")
+    test "displays option_type", %{conn: conn, option_type: option_type} do
+      {:ok, _show_live, html} = live(conn, ~p"/option_types/#{option_type}")
 
       assert html =~ "Show Component option"
-      assert html =~ component_option.name
+      assert html =~ option_type.name
     end
 
-    test "updates component_option within modal", %{
+    test "updates option_type within modal", %{
       conn: conn,
-      component_option: component_option
+      option_type: option_type
     } do
-      {:ok, show_live, _html} = live(conn, ~p"/component_options/#{component_option}")
+      {:ok, show_live, _html} = live(conn, ~p"/option_types/#{option_type}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~
                "Edit Component option"
 
-      assert_patch(show_live, ~p"/component_options/#{component_option}/show/edit")
+      assert_patch(show_live, ~p"/option_types/#{option_type}/show/edit")
 
       assert show_live
-             |> form("#component_option-form", component_option: @invalid_attrs)
+             |> form("#option_type-form", option_type: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       assert show_live
-             |> form("#component_option-form", component_option: @update_attrs)
+             |> form("#option_type-form", option_type: @update_attrs)
              |> render_submit()
 
-      assert_patch(show_live, ~p"/component_options/#{component_option}")
+      assert_patch(show_live, ~p"/option_types/#{option_type}")
 
       html = render(show_live)
       assert html =~ "Component option updated successfully"

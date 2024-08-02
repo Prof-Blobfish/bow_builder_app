@@ -1,4 +1,4 @@
-defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
+defmodule BowBuilderAppWeb.OptionTypeLive.FormComponent do
   use BowBuilderAppWeb, :live_component
 
   alias BowBuilderApp.BowComponents
@@ -9,12 +9,12 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage component_option records in your database.</:subtitle>
+        <:subtitle>Use this form to manage option_type records in your database.</:subtitle>
       </.header>
 
       <.simple_form
         for={@form}
-        id="component_option-form"
+        id="option_type-form"
         phx-target={@myself}
         phx-change="validate"
         phx-submit="save"
@@ -30,37 +30,37 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
   end
 
   @impl true
-  def update(%{component_option: component_option} = assigns, socket) do
+  def update(%{option_type: option_type} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
      |> assign_new(:form, fn ->
-       to_form(BowComponents.change_component_option(component_option))
+       to_form(BowComponents.change_option_type(option_type))
      end)}
   end
 
   @impl true
-  def handle_event("validate", %{"component_option" => component_option_params}, socket) do
+  def handle_event("validate", %{"option_type" => option_type_params}, socket) do
     changeset =
-      BowComponents.change_component_option(
-        socket.assigns.component_option,
-        component_option_params
+      BowComponents.change_option_type(
+        socket.assigns.option_type,
+        option_type_params
       )
 
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
-  def handle_event("save", %{"component_option" => component_option_params}, socket) do
-    save_component_option(socket, socket.assigns.action, component_option_params)
+  def handle_event("save", %{"option_type" => option_type_params}, socket) do
+    save_option_type(socket, socket.assigns.action, option_type_params)
   end
 
-  defp save_component_option(socket, :edit, component_option_params) do
-    case BowComponents.update_component_option(
-           socket.assigns.component_option,
-           component_option_params
+  defp save_option_type(socket, :edit, option_type_params) do
+    case BowComponents.update_option_type(
+           socket.assigns.option_type,
+           option_type_params
          ) do
-      {:ok, component_option} ->
-        notify_parent({:saved, component_option})
+      {:ok, option_type} ->
+        notify_parent({:saved, option_type})
 
         {:noreply,
          socket
@@ -72,10 +72,10 @@ defmodule BowBuilderAppWeb.ComponentOptionLive.FormComponent do
     end
   end
 
-  defp save_component_option(socket, :new, component_option_params) do
-    case BowComponents.create_component_option(component_option_params) do
-      {:ok, component_option} ->
-        notify_parent({:saved, component_option})
+  defp save_option_type(socket, :new, option_type_params) do
+    case BowComponents.create_option_type(option_type_params) do
+      {:ok, option_type} ->
+        notify_parent({:saved, option_type})
 
         {:noreply,
          socket

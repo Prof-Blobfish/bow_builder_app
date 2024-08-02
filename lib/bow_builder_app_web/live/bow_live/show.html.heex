@@ -3,41 +3,43 @@
   <:subtitle>ID: <%= @bow.id %></:subtitle>
   <:actions>
     <.link patch={~p"/bows/#{@bow}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit bow</.button>
+      <.button>Change Name</.button>
     </.link>
   </:actions>
 </.header>
 
 <.list>
   <:item title="Riser:">
-    <%= if @riser do %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}><%= @riser.component.name %></.link>
-    <% else %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"}>None selected</.link>
-    <% end %>
+    <div>
+      <%= if @riser do %>
+        <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"} class="custom-link"><%= @riser.component.name %></.link>
+      <% else %>
+        <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"riser"}"} class="custom-link">None selected</.link>
+      <% end %>
+    </div>
   </:item>
 
   <:item title="Limbs:">
     <%= if @limbs do %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/#{@limbs.id}"}><%= @limbs.component.name %></.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@limbs.id}"} class="custom-link"><%= @limbs.component.name %></.link>
     <% else %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"limbs"}"}>None selected</.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"limbs"}"} class="custom-link">None selected</.link>
     <% end %>
   </:item>
 
   <:item title="Sight:">
     <%= if @sight do %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/#{@sight.id}"}><%= @sight.component.name %></.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@sight.id}"} class="custom-link"><%= @sight.component.name %></.link>
     <% else %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"sight"}"}>None selected</.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"sight"}"} class="custom-link">None selected</.link>
     <% end %>
   </:item>
 
   <:item title="Stabilizers:">
     <%= if @stabs do %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/#{@stabs.id}"}><%= @stabs.component.name %></.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@stabs.id}"} class="custom-link"><%= @stabs.component.name %></.link>
     <% else %>
-      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"stabs"}"}>None selected</.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/new?type=#{"stabs"}"} class="custom-link">None selected</.link>
     <% end %>
   </:item>
 </.list>
@@ -46,7 +48,7 @@
 <%= for bow_component <- @bow.bow_components do %>
   <.list>
     <:item title={bow_component.component.type}>
-      <.link patch={~p"/bows/#{@bow}/bow_components/#{@riser.id}"}><%= bow_component.component.name %></.link>
+      <.link patch={~p"/bows/#{@bow}/bow_components/#{@bow_component.id}"}><%= bow_component.component.name %></.link>
     </:item>
   </.list>
 <% end %>

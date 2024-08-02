@@ -1,6 +1,6 @@
 <.header>
   <%= "#{@bow_component.component.name} | ##{@bow_component.component.id}" %>
-  <:subtitle>This is a bow_component record from your database.</:subtitle>
+  <:subtitle>Link to Page of Brand Name</:subtitle>
   <:actions>
     <.link patch={~p"/bows/#{@bow_component.bow_id}/bow_components/#{@bow_component}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Change <%= @bow_component.type %></.button>
