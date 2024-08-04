@@ -2,10 +2,19 @@ defmodule BowBuilderAppWeb.OptionTypeLive.Index do
   use BowBuilderAppWeb, :live_view
 
   alias BowBuilderApp.BowComponents
+  alias BowBuilderApp.BowComponents.Component
   alias BowBuilderApp.BowComponents.OptionType
+  alias BowBuilderApp.Repo
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    component = Repo.get(Component, params["component_id"])
+
+    socket =
+      socket
+      |> assign(:component, component)
+      |> IO.inspect()
+
     {:ok, stream(socket, :option_types, BowComponents.list_option_types())}
   end
 
@@ -16,27 +25,25 @@ defmodule BowBuilderAppWeb.OptionTypeLive.Index do
 
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
-    |> assign(:page_title, "Edit Component option")
+    |> assign(:page_title, "Edit Option type")
     |> assign(:option_type, BowComponents.get_option_type!(id))
   end
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Component option")
+    |> assign(:page_title, "New Option type")
     |> assign(:option_type, %OptionType{})
   end
 
   defp apply_action(socket, :index, _params) do
+
     socket
-    |> assign(:page_title, "Listing Component options")
+    |> assign(:page_title, "Listing Option types")
     |> assign(:option_type, nil)
   end
 
   @impl true
-  def handle_info(
-        {BowBuilderAppWeb.OptionTypeLive.FormComponent, {:saved, option_type}},
-        socket
-      ) do
+  def handle_info({BowBuilderAppWeb.OptionTypeLive.FormComponent, {:saved, option_type}}, socket) do
     {:noreply, stream_insert(socket, :option_types, option_type)}
   end
 

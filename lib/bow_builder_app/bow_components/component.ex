@@ -6,6 +6,7 @@ defmodule BowBuilderApp.BowComponents.Component do
     field :name, :string
     field :type, :string
     field :price, :float
+    has_many :option_type, BowBuilderApp.BowComponents.OptionType
 
     timestamps(type: :utc_datetime)
   end

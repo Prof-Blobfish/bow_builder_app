@@ -2,10 +2,9 @@ defmodule BowBuilderApp.BowComponents.OptionType do
   use Ecto.Schema
   import Ecto.Changeset
 
-  schema "option_type" do
+  schema "option_types" do
     field :name, :string
-    field :value, :string
-    field :component_id, :id
+    belongs_to :component, BowBuilderApp.BowComponents.Component
 
     timestamps(type: :utc_datetime)
   end
@@ -13,7 +12,7 @@ defmodule BowBuilderApp.BowComponents.OptionType do
   @doc false
   def changeset(option_type, attrs) do
     option_type
-    |> cast(attrs, [:name, :value])
-    |> validate_required([:name, :value])
+    |> cast(attrs, [:name, :component_id])
+    |> validate_required([:name, :component_id])
   end
 end

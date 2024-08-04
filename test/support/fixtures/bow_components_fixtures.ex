@@ -62,4 +62,60 @@ defmodule BowBuilderApp.BowComponentsFixtures do
 
     bow_component
   end
+
+  @doc """
+  Generate a option_value.
+  """
+  def option_value_fixture(attrs \\ %{}) do
+    {:ok, option_value} =
+      attrs
+      |> Enum.into(%{
+        value: "some value"
+      })
+      |> BowBuilderApp.BowComponents.create_option_value()
+
+    option_value
+  end
+
+  @doc """
+  Generate a option_type.
+  """
+  def option_type_fixture(attrs \\ %{}) do
+    {:ok, option_type} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> BowBuilderApp.BowComponents.create_option_type()
+
+    option_type
+  end
+
+  @doc """
+  Generate a option_value.
+  """
+  def option_value_fixture(attrs \\ %{}) do
+    {:ok, option_value} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> BowBuilderApp.BowComponents.create_option_value()
+
+    option_value
+  end
+
+  @doc """
+  Generate a bow_option.
+  """
+  def bow_option_fixture(attrs \\ %{}) do
+    {:ok, bow_option} =
+      attrs
+      |> Enum.into(%{
+
+      })
+      |> BowBuilderApp.BowComponents.create_bow_option()
+
+    bow_option
+  end
 end

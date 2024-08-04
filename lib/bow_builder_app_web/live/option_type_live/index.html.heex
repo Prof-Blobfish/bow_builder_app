@@ -1,0 +1,45 @@
+<.header>
+  Option Types
+  <:subtitle><%= @component.name %> | #<%= @component.id %></:subtitle>
+  <:actions>
+    <.link patch={~p"/components/#{@component}/option_types/new"}>
+      <.button>New Option type</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="option_types"
+  rows={@streams.option_types}
+  row_click={fn {_id, option_type} -> JS.navigate(~p"/components/#{@component}/option_types/#{option_type}") end}
+>
+  <:col :let={{_id, option_type}} label="Name"><%= option_type.name %></:col>
+  <:action :let={{_id, option_type}}>
+    <div class="sr-only">
+      <.link navigate={~p"/components/#{@component}/option_types/#{option_type}"}>Show</.link>
+    </div>
+    <.link patch={~p"/components/#{@component}/option_types/#{option_type}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, option_type}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: option_type.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.back navigate={~p"/components/#{@component}"}>Back to <%= @component.name %></.back>
+
+<.modal :if={@live_action in [:new, :edit]} id="option_type-modal" show on_cancel={JS.patch(~p"/components/#{@component}/option_types")}>
+  <.live_component
+    module={BowBuilderAppWeb.OptionTypeLive.FormComponent}
+    id={@option_type.id || :new}
+    title={@page_title}
+    action={@live_action}
+    option_type={@option_type}
+    component_id={@component.id}
+    patch={~p"/components/#{@component}/option_types"}
+  />
+</.modal>

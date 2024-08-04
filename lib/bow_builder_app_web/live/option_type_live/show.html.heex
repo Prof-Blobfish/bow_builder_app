@@ -1,0 +1,30 @@
+<.header>
+  <%= @option_type.name %>
+  <:subtitle><%= @component.name %> | #<%= @component.id %></:subtitle>
+  <:actions>
+    <.link patch={~p"/components/#{@component}/option_types/#{@option_type}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Rename Option Type</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @option_type.name %></:item>
+  <:item title="Options">
+    <.link patch={~p"/components/#{@component}/option_types/#{@option_type}/option_values"}>Click to View</.link>
+  </:item>
+</.list>
+
+<.back navigate={~p"/components/#{@component}/option_types"}>Back to Option Types</.back>
+
+<.modal :if={@live_action == :edit} id="option_type-modal" show on_cancel={JS.patch(~p"/components/#{@component}/option_types/#{@option_type}")}>
+  <.live_component
+    module={BowBuilderAppWeb.OptionTypeLive.FormComponent}
+    id={@option_type.id}
+    title={@page_title}
+    action={@live_action}
+    option_type={@option_type}
+    component_id={@component.id}
+    patch={~p"/components/#{@component}/option_types/#{@option_type}"}
+  />
+</.modal>

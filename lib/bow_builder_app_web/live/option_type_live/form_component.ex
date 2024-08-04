@@ -20,9 +20,8 @@ defmodule BowBuilderAppWeb.OptionTypeLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:value]} type="text" label="Value" />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Component option</.button>
+          <.button phx-disable-with="Saving...">Save Option type</.button>
         </:actions>
       </.simple_form>
     </div>
@@ -30,10 +29,11 @@ defmodule BowBuilderAppWeb.OptionTypeLive.FormComponent do
   end
 
   @impl true
-  def update(%{option_type: option_type} = assigns, socket) do
+  def update(%{option_type: option_type, component_id: component_id} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:component_id, component_id)
      |> assign_new(:form, fn ->
        to_form(BowComponents.change_option_type(option_type))
      end)}
@@ -41,30 +41,23 @@ defmodule BowBuilderAppWeb.OptionTypeLive.FormComponent do
 
   @impl true
   def handle_event("validate", %{"option_type" => option_type_params}, socket) do
-    changeset =
-      BowComponents.change_option_type(
-        socket.assigns.option_type,
-        option_type_params
-      )
-
+    changeset = BowComponents.change_option_type(socket.assigns.option_type, option_type_params)
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
   def handle_event("save", %{"option_type" => option_type_params}, socket) do
+    option_type_params = Map.put(option_type_params, "component_id", socket.assigns.component_id)
     save_option_type(socket, socket.assigns.action, option_type_params)
   end
 
   defp save_option_type(socket, :edit, option_type_params) do
-    case BowComponents.update_option_type(
-           socket.assigns.option_type,
-           option_type_params
-         ) do
+    case BowComponents.update_option_type(socket.assigns.option_type, option_type_params) do
       {:ok, option_type} ->
         notify_parent({:saved, option_type})
 
         {:noreply,
          socket
-         |> put_flash(:info, "Component option updated successfully")
+         |> put_flash(:info, "Option type updated successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -79,7 +72,7 @@ defmodule BowBuilderAppWeb.OptionTypeLive.FormComponent do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Component option created successfully")
+         |> put_flash(:info, "Option type created successfully")
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

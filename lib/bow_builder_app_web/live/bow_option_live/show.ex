@@ -1,4 +1,4 @@
-defmodule BowBuilderAppWeb.OptionTypeLive.Show do
+defmodule BowBuilderAppWeb.BowOptionLive.Show do
   use BowBuilderAppWeb, :live_view
 
   alias BowBuilderApp.BowComponents
@@ -13,9 +13,9 @@ defmodule BowBuilderAppWeb.OptionTypeLive.Show do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:option_type, BowComponents.get_option_type!(id))}
+     |> assign(:bow_option, BowComponents.get_bow_option!(id))}
   end
 
-  defp page_title(:show), do: "Show Option Type"
-  defp page_title(:edit), do: "Edit Option Type"
+  defp page_title(:show), do: "Show Bow option"
+  defp page_title(:edit), do: "Edit Bow option"
 end

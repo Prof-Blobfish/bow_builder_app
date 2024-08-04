@@ -1,6 +1,6 @@
 <.header>
-  Component <%= @component.id %>
-  <:subtitle>This is a component record from your database.</:subtitle>
+  <%= @component.name %>
+  <:subtitle>#<%= @component.id %></:subtitle>
   <:actions>
     <.link patch={~p"/components/#{@component}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit component</.button>
@@ -12,6 +12,9 @@
   <:item title="Type"><%= @component.type %></:item>
   <:item title="Name"><%= @component.name %></:item>
   <:item title="Price"><%= @component.price %></:item>
+  <:item title="Options">
+    <.link patch={~p"/components/#{@component}/option_types"}>Click to View</.link>
+  </:item>
 </.list>
 
 <.back navigate={~p"/components"}>Back to components</.back>

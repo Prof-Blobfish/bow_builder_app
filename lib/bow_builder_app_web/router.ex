@@ -29,6 +29,20 @@ defmodule BowBuilderAppWeb.Router do
     live "/bows/:id", BowLive.Show, :show
     live "/bows/:id/show/edit", BowLive.Show, :edit
 
+    live "/bows/:bow_id/bow_components", BowComponentLive.Index, :index
+    live "/bows/:bow_id/bow_components/new", BowComponentLive.Index, :new
+    live "/bows/:bow_id/bow_components/:id/edit", BowComponentLive.Index, :edit
+
+    live "/bows/:bow_id/bow_components/:id", BowComponentLive.Show, :show
+    live "/bows/:bow_id/bow_components/:id/show/edit", BowComponentLive.Show, :edit
+
+    live "/bows/:bow_id/bow_components/:id/bow_options", BowOptionLive.Index, :index
+    live "/bows/:bow_id/bow_components/:id/bow_options/new", BowOptionLive.Index, :new
+    live "/bows/:bow_id/bow_components/:id/bow_options/:id/edit", BowOptionLive.Index, :edit
+
+    live "/bows/:bow_id/bow_components/:id/bow_options/:id", BowOptionLive.Show, :show
+    live "/bows/:bow_id/bow_components/:id/bow_options/:id/show/edit", BowOptionLive.Show, :edit
+
     live "/components", ComponentLive.Index, :index
     live "/components/new", ComponentLive.Index, :new
     live "/components/:id/edit", ComponentLive.Index, :edit
@@ -36,19 +50,19 @@ defmodule BowBuilderAppWeb.Router do
     live "/components/:id", ComponentLive.Show, :show
     live "/components/:id/show/edit", ComponentLive.Show, :edit
 
-    live "/option_types", OptionTypeLive.Index, :index
-    live "/option_types/new", OptionTypeLive.Index, :new
-    live "/option_types/:id/edit", OptionTypeLive.Index, :edit
+    live "/components/:component_id/option_types", OptionTypeLive.Index, :index
+    live "/components/:component_id/option_types/new", OptionTypeLive.Index, :new
+    live "/components/:component_id/option_types/:id/edit", OptionTypeLive.Index, :edit
 
-    live "/option_types/:id", OptionTypeLive.Show, :show
-    live "/option_types/:id/show/edit", OptionTypeLive.Show, :edit
+    live "/components/:component_id/option_types/:id", OptionTypeLive.Show, :show
+    live "/components/:component_id/option_types/:id/show/edit", OptionTypeLive.Show, :edit
 
-    live "/bows/:bow_id/bow_components", BowComponentLive.Index, :index
-    live "/bows/:bow_id/bow_components/new", BowComponentLive.Index, :new
-    live "/bows/:bow_id/bow_components/:id/edit", BowComponentLive.Index, :edit
+    live "/components/:component_id/option_types/:option_type_id/option_values", OptionValueLive.Index, :index
+    live "/components/:component_id/option_types/:option_type_id/option_values/new", OptionValueLive.Index, :new
+    live "/components/:component_id/option_types/:option_type_id/option_values/:id/edit", OptionValueLive.Index, :edit
 
-    live "/bows/:bow_id/bow_components/:id", BowComponentLive.Show, :show
-    live "/bows/:bow_id/bow_components/:id/show/edit", BowComponentLive.Show, :edit
+    live "/components/:component_id/option_types/:option_type_id/option_values/:id", OptionValueLive.Show, :show
+    live "/components/:component_id/option_types/:option_type_id/option_values/:id/show/edit", OptionValueLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

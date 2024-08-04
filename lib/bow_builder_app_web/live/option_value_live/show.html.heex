@@ -1,0 +1,26 @@
+<.header>
+  Option value <%= @option_value.id %>
+  <:subtitle>This is a option_value record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/components/#{@component}/option_types/#{@option_type}/option_values/#{@option_value}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit option_value</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @option_value.name %></:item>
+</.list>
+
+<.back navigate={~p"/components/#{@component}/option_types/#{@option_type}/option_values"}>Back to option_values</.back>
+
+<.modal :if={@live_action == :edit} id="option_value-modal" show on_cancel={JS.patch(~p"/components/#{@component}/option_types/#{@option_type}/option_values/#{@option_value}")}>
+  <.live_component
+    module={BowBuilderAppWeb.OptionValueLive.FormComponent}
+    id={@option_value.id}
+    title={@page_title}
+    action={@live_action}
+    option_value={@option_value}
+    patch={~p"/components/#{@component}/option_types/#{@option_type}/option_values/#{@option_value}"}
+  />
+</.modal>

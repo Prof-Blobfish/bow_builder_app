@@ -102,102 +102,6 @@ defmodule BowBuilderApp.BowComponents do
     Component.changeset(component, attrs)
   end
 
-  alias BowBuilderApp.BowComponents.OptionType
-
-  @doc """
-  Returns the list of option_types.
-
-  ## Examples
-
-      iex> list_option_types()
-      [%OptionType{}, ...]
-
-  """
-  def list_option_types do
-    Repo.all(OptionType)
-  end
-
-  @doc """
-  Gets a single option_type.
-
-  Raises `Ecto.NoResultsError` if the Component option does not exist.
-
-  ## Examples
-
-      iex> get_option_type!(123)
-      %OptionType{}
-
-      iex> get_option_type!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_option_type!(id), do: Repo.get!(OptionType, id)
-
-  @doc """
-  Creates a option_type.
-
-  ## Examples
-
-      iex> create_option_type(%{field: value})
-      {:ok, %OptionType{}}
-
-      iex> create_option_type(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_option_type(attrs \\ %{}) do
-    %OptionType{}
-    |> OptionType.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a option_type.
-
-  ## Examples
-
-      iex> update_option_type(option_type, %{field: new_value})
-      {:ok, %OptionType{}}
-
-      iex> update_option_type(option_type, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_option_type(%OptionType{} = option_type, attrs) do
-    option_type
-    |> OptionType.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a option_type.
-
-  ## Examples
-
-      iex> delete_option_type(option_type)
-      {:ok, %OptionType{}}
-
-      iex> delete_option_type(option_type)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_option_type(%OptionType{} = option_type) do
-    Repo.delete(option_type)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking option_type changes.
-
-  ## Examples
-
-      iex> change_option_type(option_type)
-      %Ecto.Changeset{data: %OptionType{}}
-
-  """
-  def change_option_type(%OptionType{} = option_type, attrs \\ %{}) do
-    OptionType.changeset(option_type, attrs)
-  end
-
   alias BowBuilderApp.BowComponents.Bow
 
   @doc """
@@ -388,5 +292,297 @@ defmodule BowBuilderApp.BowComponents do
   """
   def change_bow_component(%BowComponent{} = bow_component, attrs \\ %{}) do
     BowComponent.changeset(bow_component, attrs)
+  end
+
+  alias BowBuilderApp.BowComponents.OptionValue
+
+  @doc """
+  Returns the list of option_values.
+
+  ## Examples
+
+      iex> list_option_values()
+      [%OptionValue{}, ...]
+
+  """
+  def list_option_values do
+    Repo.all(OptionValue)
+  end
+
+  @doc """
+  Gets a single option_value.
+
+  Raises `Ecto.NoResultsError` if the Option value does not exist.
+
+  ## Examples
+
+      iex> get_option_value!(123)
+      %OptionValue{}
+
+      iex> get_option_value!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_option_value!(id), do: Repo.get!(OptionValue, id)
+
+  @doc """
+  Creates a option_value.
+
+  ## Examples
+
+      iex> create_option_value(%{field: value})
+      {:ok, %OptionValue{}}
+
+      iex> create_option_value(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_option_value(attrs \\ %{}) do
+    %OptionValue{}
+    |> OptionValue.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a option_value.
+
+  ## Examples
+
+      iex> update_option_value(option_value, %{field: new_value})
+      {:ok, %OptionValue{}}
+
+      iex> update_option_value(option_value, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_option_value(%OptionValue{} = option_value, attrs) do
+    option_value
+    |> OptionValue.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a option_value.
+
+  ## Examples
+
+      iex> delete_option_value(option_value)
+      {:ok, %OptionValue{}}
+
+      iex> delete_option_value(option_value)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_option_value(%OptionValue{} = option_value) do
+    Repo.delete(option_value)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking option_value changes.
+
+  ## Examples
+
+      iex> change_option_value(option_value)
+      %Ecto.Changeset{data: %OptionValue{}}
+
+  """
+  def change_option_value(%OptionValue{} = option_value, attrs \\ %{}) do
+    OptionValue.changeset(option_value, attrs)
+  end
+
+  alias BowBuilderApp.BowComponents.OptionType
+
+  @doc """
+  Returns the list of option_types.
+
+  ## Examples
+
+      iex> list_option_types()
+      [%OptionType{}, ...]
+
+  """
+  def list_option_types do
+    Repo.all(OptionType)
+  end
+
+  def list_option_types(component_id) do
+    Repo.all(from ot in OptionType, where: ot.component_id == ^component_id)
+  end
+
+  @doc """
+  Gets a single option_type.
+
+  Raises `Ecto.NoResultsError` if the Option type does not exist.
+
+  ## Examples
+
+      iex> get_option_type!(123)
+      %OptionType{}
+
+      iex> get_option_type!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_option_type!(id), do: Repo.get!(OptionType, id)
+
+  @doc """
+  Creates a option_type.
+
+  ## Examples
+
+      iex> create_option_type(%{field: value})
+      {:ok, %OptionType{}}
+
+      iex> create_option_type(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_option_type(attrs \\ %{}) do
+    %OptionType{}
+    |> OptionType.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a option_type.
+
+  ## Examples
+
+      iex> update_option_type(option_type, %{field: new_value})
+      {:ok, %OptionType{}}
+
+      iex> update_option_type(option_type, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_option_type(%OptionType{} = option_type, attrs) do
+    option_type
+    |> OptionType.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a option_type.
+
+  ## Examples
+
+      iex> delete_option_type(option_type)
+      {:ok, %OptionType{}}
+
+      iex> delete_option_type(option_type)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_option_type(%OptionType{} = option_type) do
+    Repo.delete(option_type)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking option_type changes.
+
+  ## Examples
+
+      iex> change_option_type(option_type)
+      %Ecto.Changeset{data: %OptionType{}}
+
+  """
+  def change_option_type(%OptionType{} = option_type, attrs \\ %{}) do
+    OptionType.changeset(option_type, attrs)
+  end
+
+  alias BowBuilderApp.BowComponents.BowOption
+
+  @doc """
+  Returns the list of bow_options.
+
+  ## Examples
+
+      iex> list_bow_options()
+      [%BowOption{}, ...]
+
+  """
+  def list_bow_options do
+    Repo.all(BowOption)
+  end
+
+  @doc """
+  Gets a single bow_option.
+
+  Raises `Ecto.NoResultsError` if the Bow option does not exist.
+
+  ## Examples
+
+      iex> get_bow_option!(123)
+      %BowOption{}
+
+      iex> get_bow_option!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_bow_option!(id), do: Repo.get!(BowOption, id)
+
+  @doc """
+  Creates a bow_option.
+
+  ## Examples
+
+      iex> create_bow_option(%{field: value})
+      {:ok, %BowOption{}}
+
+      iex> create_bow_option(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_bow_option(attrs \\ %{}) do
+    %BowOption{}
+    |> BowOption.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a bow_option.
+
+  ## Examples
+
+      iex> update_bow_option(bow_option, %{field: new_value})
+      {:ok, %BowOption{}}
+
+      iex> update_bow_option(bow_option, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_bow_option(%BowOption{} = bow_option, attrs) do
+    bow_option
+    |> BowOption.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a bow_option.
+
+  ## Examples
+
+      iex> delete_bow_option(bow_option)
+      {:ok, %BowOption{}}
+
+      iex> delete_bow_option(bow_option)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_bow_option(%BowOption{} = bow_option) do
+    Repo.delete(bow_option)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking bow_option changes.
+
+  ## Examples
+
+      iex> change_bow_option(bow_option)
+      %Ecto.Changeset{data: %BowOption{}}
+
+  """
+  def change_bow_option(%BowOption{} = bow_option, attrs \\ %{}) do
+    BowOption.changeset(bow_option, attrs)
   end
 end
