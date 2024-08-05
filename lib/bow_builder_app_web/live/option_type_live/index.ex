@@ -13,9 +13,8 @@ defmodule BowBuilderAppWeb.OptionTypeLive.Index do
     socket =
       socket
       |> assign(:component, component)
-      |> IO.inspect()
 
-    {:ok, stream(socket, :option_types, BowComponents.list_option_types())}
+    {:ok, stream(socket, :option_types, BowComponents.list_option_types(component.id))}
   end
 
   @impl true

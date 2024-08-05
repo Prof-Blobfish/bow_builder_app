@@ -28,8 +28,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.Show do
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
      |> assign(:bow_component, bow_component)
-     |> assign(:catalog, list_components_by_type(bow_component.type))
-     |> IO.inspect()}
+     |> assign(:catalog, list_components_by_type(bow_component.type))}
   end
 
   defp page_title(:show), do: "Show Bow component"

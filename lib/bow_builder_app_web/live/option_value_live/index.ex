@@ -1,8 +1,6 @@
 defmodule BowBuilderAppWeb.OptionValueLive.Index do
   use BowBuilderAppWeb, :live_view
 
-  import Ecto.Query, warn: false
-
   alias BowBuilderApp.BowComponents
   alias BowBuilderApp.BowComponents.Component
   alias BowBuilderApp.BowComponents.OptionType
@@ -11,7 +9,6 @@ defmodule BowBuilderAppWeb.OptionValueLive.Index do
 
   @impl true
   def mount(params, _session, socket) do
-    IO.inspect(params)
     component = Repo.get(Component, params["component_id"])
     option_type = Repo.get(OptionType, params["option_type_id"])
 
@@ -22,7 +19,9 @@ defmodule BowBuilderAppWeb.OptionValueLive.Index do
         option_type: option_type
         )
 
-    {:ok, stream(socket, :option_values, BowComponents.list_option_values())}
+    IO.inspect(BowComponents.list_option_values(option_type.id))
+
+    {:ok, stream(socket, :option_values, BowComponents.list_option_values(option_type.id))}
   end
 
   @impl true

@@ -12,7 +12,7 @@ defmodule BowBuilderApp.BowComponents.OptionValue do
   @doc false
   def changeset(option_value, attrs) do
     option_value
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :option_type_id])
+    |> validate_required([:name, :option_type_id])
   end
 end

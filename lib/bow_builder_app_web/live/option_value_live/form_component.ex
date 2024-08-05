@@ -29,10 +29,11 @@ defmodule BowBuilderAppWeb.OptionValueLive.FormComponent do
   end
 
   @impl true
-  def update(%{option_value: option_value} = assigns, socket) do
+  def update(%{option_value: option_value, option_type_id: option_type_id} = assigns, socket) do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:option_type_id, option_type_id)
      |> assign_new(:form, fn ->
        to_form(BowComponents.change_option_value(option_value))
      end)}
@@ -45,6 +46,7 @@ defmodule BowBuilderAppWeb.OptionValueLive.FormComponent do
   end
 
   def handle_event("save", %{"option_value" => option_value_params}, socket) do
+    option_value_params = Map.put(option_value_params, "option_type_id", socket.assigns.option_type_id)
     save_option_value(socket, socket.assigns.action, option_value_params)
   end
 
@@ -57,6 +59,7 @@ defmodule BowBuilderAppWeb.OptionValueLive.FormComponent do
          socket
          |> put_flash(:info, "Option value updated successfully")
          |> push_patch(to: socket.assigns.patch)}
+         |> IO.inspect()
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, form: to_form(changeset))}

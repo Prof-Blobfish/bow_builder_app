@@ -84,7 +84,6 @@ defmodule BowBuilderAppWeb.BowComponentLive.FormComponent do
 
     case BowComponents.create_bow_component(bow_component_params) do
       {:ok, bow_component} ->
-        IO.inspect(bow_component)
         notify_parent({:saved, bow_component})
 
         {:noreply,

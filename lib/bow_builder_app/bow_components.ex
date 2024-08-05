@@ -309,6 +309,10 @@ defmodule BowBuilderApp.BowComponents do
     Repo.all(OptionValue)
   end
 
+  def list_option_values(option_type_id) do
+    Repo.all(from ov in OptionValue, where: ov.option_type_id == ^option_type_id)
+  end
+
   @doc """
   Gets a single option_value.
 
