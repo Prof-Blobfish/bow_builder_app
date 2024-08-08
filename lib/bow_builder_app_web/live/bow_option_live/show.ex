@@ -2,9 +2,19 @@ defmodule BowBuilderAppWeb.BowOptionLive.Show do
   use BowBuilderAppWeb, :live_view
 
   alias BowBuilderApp.BowComponents
+  alias BowBuilderApp.BowComponents.{Bow, BowComponent}
+  alias BowBuilderApp.Repo
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    bow = Repo.get(Bow, params["bow_id"])
+    bow_component = Repo.get(BowComponent, params["bow_component_id"])
+
+    socket =
+      socket
+      |> assign(:bow, bow)
+      |> assign(:bow_component, bow_component)
+
     {:ok, socket}
   end
 

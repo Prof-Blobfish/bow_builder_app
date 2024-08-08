@@ -1,7 +1,7 @@
 <.header>
   Listing Bow options
   <:actions>
-    <.link patch={~p"/bow_options/new"}>
+    <.link patch={~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options/new"}>
       <.button>New Bow option</.button>
     </.link>
   </:actions>
@@ -10,13 +10,14 @@
 <.table
   id="bow_options"
   rows={@streams.bow_options}
-  row_click={fn {_id, bow_option} -> JS.navigate(~p"/bow_options/#{bow_option}") end}
+  row_click={fn {_id, bow_option} -> JS.navigate(~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options/#{bow_option}") end}
 >
+  <:col :let={{_id, bow_option}} label="Name"><%= bow_option.option_type.name %>: <%= bow_option.option_value.name %></:col>
   <:action :let={{_id, bow_option}}>
     <div class="sr-only">
-      <.link navigate={~p"/bow_options/#{bow_option}"}>Show</.link>
+      <.link navigate={~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options/#{bow_option}"}>Show</.link>
     </div>
-    <.link patch={~p"/bow_options/#{bow_option}/edit"}>Edit</.link>
+    <.link patch={~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options/#{bow_option}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, bow_option}}>
     <.link
@@ -28,13 +29,19 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="bow_option-modal" show on_cancel={JS.patch(~p"/bow_options")}>
+<.back navigate={~p"/bows/#{@bow}/bow_components/#{@bow_component}"}>Back to <%= @component.name %></.back>
+
+<.modal :if={@live_action in [:new, :edit]} id="bow_option-modal" show on_cancel={JS.patch(~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options")}>
   <.live_component
     module={BowBuilderAppWeb.BowOptionLive.FormComponent}
     id={@bow_option.id || :new}
     title={@page_title}
     action={@live_action}
     bow_option={@bow_option}
-    patch={~p"/bow_options"}
+    bow={@bow}
+    bow_component={@bow_component}
+    component={@component}
+    option_types={@option_types}
+    patch={~p"/bows/#{@bow}/bow_components/#{@bow_component}/bow_options"}
   />
 </.modal>

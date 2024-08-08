@@ -1,12 +1,36 @@
 defmodule BowBuilderAppWeb.BowOptionLive.Index do
   use BowBuilderAppWeb, :live_view
 
+  import Ecto.Query, warn: false
+
   alias BowBuilderApp.BowComponents
-  alias BowBuilderApp.BowComponents.BowOption
+  alias BowBuilderApp.BowComponents.{Bow, BowOption, BowComponent, Component, OptionType}
+  alias BowBuilderApp.Repo
+
+  def list_option_types_by_component_id(component_id) do
+    Repo.all(from ot in OptionType, where: ot.component_id == ^component_id, preload: [:option_values])
+  end
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, stream(socket, :bow_options, BowComponents.list_bow_options())}
+  def mount(params, _session, socket) do
+    bow = Repo.get(Bow, params["bow_id"])
+    bow_component = Repo.get(BowComponent, params["bow_component_id"])
+    component = Repo.get(Component, bow_component.component_id)
+    option_types = list_option_types_by_component_id(component.id)
+    bow_options = BowComponents.list_bow_options()
+    |> Repo.preload(:option_type)
+    |> Repo.preload(:option_value)
+
+    socket =
+      socket
+      |> assign(
+        bow: bow,
+        bow_component: bow_component,
+        component: component,
+        option_types: option_types
+        )
+
+    {:ok, stream(socket, :bow_options, bow_options)}
   end
 
   @impl true

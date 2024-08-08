@@ -4,7 +4,7 @@ defmodule BowBuilderApp.BowComponents.OptionValue do
 
   schema "option_values" do
     field :name, :string
-    field :option_type_id, :id
+    belongs_to :option_type, BowBuilderApp.BowComponents.OptionType
 
     timestamps(type: :utc_datetime)
   end

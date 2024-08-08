@@ -6,7 +6,6 @@ defmodule BowBuilderAppWeb.OptionValueLive.Show do
   alias BowBuilderApp.BowComponents
   alias BowBuilderApp.BowComponents.Component
   alias BowBuilderApp.BowComponents.OptionType
-  alias BowBuilderApp.BowComponents.OptionValue
   alias BowBuilderApp.Repo
 
   @impl true

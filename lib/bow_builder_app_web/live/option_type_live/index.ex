@@ -2,8 +2,7 @@ defmodule BowBuilderAppWeb.OptionTypeLive.Index do
   use BowBuilderAppWeb, :live_view
 
   alias BowBuilderApp.BowComponents
-  alias BowBuilderApp.BowComponents.Component
-  alias BowBuilderApp.BowComponents.OptionType
+  alias BowBuilderApp.BowComponents.{Component, OptionType}
   alias BowBuilderApp.Repo
 
   @impl true

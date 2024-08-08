@@ -3,9 +3,9 @@ defmodule BowBuilderApp.Repo.Migrations.CreateBowOptions do
 
   def change do
     create table(:bow_options) do
-      add :bow_component_id, references(:bow_components, on_delete: :nothing)
-      add :option_value_id, references(:option_values, on_delete: :nothing)
-      add :option_type_id, references(:option_types, on_delete: :nothing)
+      add :bow_component_id, references(:bow_components, on_delete: :delete_all)
+      add :option_value_id, references(:option_values, on_delete: :delete_all)
+      add :option_type_id, references(:option_types, on_delete: :delete_all)
 
       timestamps(type: :utc_datetime)
     end

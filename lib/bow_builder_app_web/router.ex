@@ -36,12 +36,12 @@ defmodule BowBuilderAppWeb.Router do
     live "/bows/:bow_id/bow_components/:id", BowComponentLive.Show, :show
     live "/bows/:bow_id/bow_components/:id/show/edit", BowComponentLive.Show, :edit
 
-    live "/bows/:bow_id/bow_components/:id/bow_options", BowOptionLive.Index, :index
-    live "/bows/:bow_id/bow_components/:id/bow_options/new", BowOptionLive.Index, :new
-    live "/bows/:bow_id/bow_components/:id/bow_options/:id/edit", BowOptionLive.Index, :edit
+    live "/bows/:bow_id/bow_components/:bow_component_id/bow_options", BowOptionLive.Index, :index
+    live "/bows/:bow_id/bow_components/:bow_component_id/bow_options/new", BowOptionLive.Index, :new
+    live "/bows/:bow_id/bow_components/:bow_component_id/bow_options/:id/edit", BowOptionLive.Index, :edit
 
-    live "/bows/:bow_id/bow_components/:id/bow_options/:id", BowOptionLive.Show, :show
-    live "/bows/:bow_id/bow_components/:id/bow_options/:id/show/edit", BowOptionLive.Show, :edit
+    live "/bows/:bow_id/bow_components/:bow_component_id/bow_options/:id", BowOptionLive.Show, :show
+    live "/bows/:bow_id/bow_components/:bow_component_id/bow_options/:id/show/edit", BowOptionLive.Show, :edit
 
     live "/components", ComponentLive.Index, :index
     live "/components/new", ComponentLive.Index, :new

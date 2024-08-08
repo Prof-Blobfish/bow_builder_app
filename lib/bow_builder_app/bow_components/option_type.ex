@@ -5,6 +5,7 @@ defmodule BowBuilderApp.BowComponents.OptionType do
   schema "option_types" do
     field :name, :string
     belongs_to :component, BowBuilderApp.BowComponents.Component
+    has_many :option_values, BowBuilderApp.BowComponents.OptionValue, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end

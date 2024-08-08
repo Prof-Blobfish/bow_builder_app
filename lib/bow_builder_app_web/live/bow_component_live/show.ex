@@ -4,6 +4,7 @@ defmodule BowBuilderAppWeb.BowComponentLive.Show do
   import Ecto.Query, warn: false
 
   alias BowBuilderApp.BowComponents
+  alias BowBuilderApp.BowComponents.Bow
   alias BowBuilderApp.BowComponents.Component
   alias BowBuilderApp.Repo
 
@@ -13,7 +14,12 @@ defmodule BowBuilderAppWeb.BowComponentLive.Show do
   end
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
+    bow = Repo.get(Bow, params["bow_id"])
+
+    socket =
+      socket
+      |> assign(:bow, bow)
     {:ok, socket}
   end
 
